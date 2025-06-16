@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Arymus Reyes">
+    <meta name="description" content="Fetch any GitHub/Codeberg user's repositories!">
+    <title>Repository Fetcher</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Repository Fetcher</h1>
+        <p>Get any GitHub or Codeberg user's repositories!</p>
+    </header>
+
+    <main>
+
+        <!-- Returning false when the form is submitted prevents it from reloading the page. -->
+        <form onsubmit="return false">
+            <input type="radio" name="platform" id="github" value="GitHub">
+            <label for="github">GitHub</label>
+
+            <br>
+
+            <input type="radio" name="platform" id="codeberg" value="Codeberg">
+            <label for="codeberg">Codeberg</label>
+
+            <br>
+
+            <input type="text" id="user" placeholder="Username: ">
+            <input type="submit" id="submit" value="submit">
+        </form>
+
+        <ul id="repo-list"></ul>
+    </main>
+
+    <footer>
+        <a href="https://github.com/arymus">GitHub</a>
+        <a href="https://codeberg.org/arymus">Codeberg</a>
+        <a href="https://github.com/arymus/gh-cb-fetch">Source</a>
+        <a href="https://arydev.com">Portfolio</a>
+    </footer>
+</body>
+<script src="script.js" defer></script>
+</html>
