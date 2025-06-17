@@ -19,18 +19,22 @@
 
         <!-- Returning false when the form is submitted prevents it from reloading the page. -->
         <form onsubmit="return false">
-            <input type="radio" name="platform" id="github" value="GitHub">
-            <label for="github">GitHub</label>
+            <div class="radio-input">
+                <h3>Pick a platform!</h3>
+                <input type="radio" name="platform" id="github" value="GitHub">
+                <label for="github">GitHub</label>
+
+                <input type="radio" name="platform" id="codeberg" value="Codeberg">
+                <label for="codeberg">Codeberg</label>
+            </div>
 
             <br>
 
-            <input type="radio" name="platform" id="codeberg" value="Codeberg">
-            <label for="codeberg">Codeberg</label>
-
-            <br>
-
-            <input type="text" id="user" placeholder="Username: ">
-            <input type="submit" id="submit" value="submit">
+            <div class="form-submission">
+                <h3>Input your username</h3>
+                <input type="text" id="user" placeholder="Username: ">
+                <input type="submit" id="submit" value="submit">
+            </div>
         </form>
 
         <ul id="repo-list"></ul>
