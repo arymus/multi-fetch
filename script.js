@@ -11,12 +11,12 @@ async function fetchRepositories(username) {
             if (emptyUser) throw new Error("Please input your username!"); // Throw an error object if the username is empty
             response = await fetch(`https://api.github.com/users/${username}/repos`); // Fetch from the GitHub API
 
-        // If the radio input with the id of "codeberg" is checked
+            // If the radio input with the id of "codeberg" is checked
         } else if (document.getElementById("codeberg").checked == true) {
             if (emptyUser) throw new Error("Please input your username!"); // Throw an error object if the username is empty
             response = await fetch(`https://codeberg.org/api/v1/users/${username}/repos`); // Fetch from the Codeberg API
 
-        // If else (neither is selected)
+            // If else (neither is selected)
         } else {
 
             // This error message says that both fields need input since the fact that this line is in an else block indicates that both radio inputs are also unchecked
@@ -66,7 +66,7 @@ async function listRepositories() {
                 repoList.push(`<a href="${repo.html_url}" target="_blank">${repo.name}</a>`); // Create an <a> element with the link of the repository and with the repository name and add it to the repoList array
             });
 
-        // Catch any errors (if repos doesn't work the error will most likely be that repos.forEach is not a function and I don't want that to show)
+            // Catch any errors (if repos doesn't work the error will most likely be that repos.forEach is not a function and I don't want that to show)
         } catch (err) { return err }; // Return the error to stop program execution
 
         // Function to create a list element with HTMLContent passed to it
@@ -86,8 +86,8 @@ async function listRepositories() {
         let cleared = false; // Initialize a variable to track DOM clearing (false because the original state is uncleared)
         let submitted; // Initialize a variable to track if the form was submitted (undefined because the state is defined by the amount of times the form was submitted)
 
-        submitCount === 0 ? submitted = false: // If the form was submitted 0 times, set submitted to false
-        submitted = true; // If else (form was submitted 1+ times), set submitted to true
+        submitCount === 0 ? submitted = false : // If the form was submitted 0 times, set submitted to false
+            submitted = true; // If else (form was submitted 1+ times), set submitted to true
 
         // For each item in the repoList array, where an individual item is represented as repo_html (because it contains HTML content for each repo)
         for (const repoHTML of repoList) {
@@ -96,7 +96,7 @@ async function listRepositories() {
             if (!submitted) {
                 createListElement(repoHTML); // Create <li> elements for each repository
 
-            // If else (form was submitted)
+                // If else (form was submitted)
             } else {
 
                 // If the DOM wasn't cleared
@@ -111,15 +111,86 @@ async function listRepositories() {
 
         cleared = false; // Set cleared back to false so that the DOM is cleared when the button is clicked again
 
-    // Catch any errors where the error is represented as err
+        // Catch any errors where the error is represented as err
     } catch (err) {
         alert(err); // Send an alert to the window containing the error
         return err; // Return the error to stop program execution
     };
 };
 
+
+function formatRepositories() {
+
+    // Get all <li> elements from the repository list
+    const repoList = document.getElementById("repo-list").querySelectorAll("li");
+
+    // For each item in the repository list, where an individual item is passed to the function as repo
+    repoList.forEach(repo => {
+        const linkText = repo.querySelector("a"); // Get the <a> tag from inside the <li> elements
+        let text = linkText.innerText; // Get the repository name
+
+
+        /*
+         * .replace() replaces a substring inside a string with another string.
+         * The first string is a regular expression, where /[-_]/ represents both the dash and underscore, and finds all instances of either character in the string.
+         * The g flag means global, so it'll check every letter for a dash or underscore and not the first one.
+         * The second argument replaces any of those regex matches with a space.
+         */
+        text = text.replace(/[-_]/g, " ");
+
+        /* ====== GOAL ======
+         * 1. Split the text into separate words
+        * 2. Check each word. If the word has 1+ vowels, only capitalize the first letter. If there are no vowels, capitalize the entire thing
+        * 3. Reassign the new text to the text variable
+        * 4. Make the text variable the text of the <a> tag inside the <li> tag of the repository list
+        */
+
+
+        /* 
+        * 1. Split the text into an array at every space
+        * 2. Create a new array where every item has had the following function called on it
+        * Remember: Each item is passed to the .map() function as word
+        */
+        text = text.split(" ").map(word => {
+
+            /*
+             * hasVowels uses regex (regular expressions) to see if there are vowels in the word.
+             * /[aeiou]/ represents the characters "a", "e", "i", "o", and "u" and matches all of them when the regex is used.
+             * the i flag makes it case-insensitive, so the letter being compared in the regex can be uppercase or lowercase and still return true.
+             * The .test() function takes every letter in the word and matches it to the regex, and returns true if any of those characters (the vowels) are found, regardless of case.
+             */
+            const hasVowels = /[aeiou]/i.test(word);
+
+            // If the word has vowels
+            if (hasVowels) {
+    
+                /*
+                * 1. Get the first letter of the word (char at index 0) and turn it into an uppercase (toUpperCase)
+                * 2. Concatenate it with the rest of the string using .slice(), which returns part of an array using a starting and ending index
+                * In this case, we start at index 1 and go to the rest of the array, adding the entire array to the uppercased letter
+                */
+                return word.charAt(0).toUpperCase() + word.slice(1);
+    
+            // If else (word does not have vowels)
+            } else {
+                return word.toUpperCase(); // Return the word but all letters are uppercase
+            };
+        }).join(" "); // Join the array back at the spaces
+
+        linkText.innerText = text; // Edit the original text of the repository to be the modified text
+        linkText.style.color = "#5240c4";
+    });
+
+};
+
 // Add an event listener to the <form> element that detects when the form is submitted (the input with a type of "submit" is clicked)
-document.querySelector("form").addEventListener("submit", () => {
-    listRepositories(); // Call the listRepositories() function
+document.querySelector("form").addEventListener("submit", async () => {
+
+    /*
+     * We use await for the listRepositories() function to ensure that all promises are resolved before anything happens.
+     * This way, when we call formatRepositories(), it is guaranteed that there are repositories to format.
+     */
+    await listRepositories(); // List the repositories
+    formatRepositories(); // Format the repositories
     submitCount++; // Increase the amount of times the button was submitted
 });
