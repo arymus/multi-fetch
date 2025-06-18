@@ -1,8 +1,21 @@
+@font-face {
+    font-family: Caprasimo;
+    src: url("/assets/Caprasimo-Regular.ttf");
+}
+
+* {
+    font-family: Caprasimo;
+    letter-spacing: 1px;
+}
 body, html {
-    height: 100vh; width: 100vw;
-    margin: 0; padding: 0; border: 0;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    border: 0;
     overflow-x: hidden;
 }
+
 
 @keyframes pop {
     0% {
@@ -18,76 +31,213 @@ body, html {
     }
 }
 
+@keyframes hover-change {
+    from { color: #F26CA7; }
+    to { color: #5E4AE3; }
+}
+
+@keyframes underline {
+    from { width: 0; }
+    to {  width: initial; }
+}
+
+@keyframes repo-hover {
+    from {
+        color: #7259b1;
+    }
+
+    to {
+        color: #FFFFFF;
+        text-shadow:
+        0 0 10px #ffffff,
+        0 0 30px #5240c4,
+        0 5px 30px #5240c4,
+        0 10px 30px #5240c4;
+    }
+}
+
 header {
-    background-color: #F0A7A0;
+    background-image: linear-gradient(#F0A7A0, #5E4AE3);
     color: #ffffff;
     width: 100vw;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; margin-bottom: -5px;
+
     h1 {
         font-size: 3rem;
-        text-shadow: 
+        text-shadow:
         0 0 10px #ffffff,
         0 0 30px #F26CA7,
         0 10px 30px #F26CA7,
         0 20px 30px #F26CA7;
     }
 
-    p {
-        font-size: 1.2rem;
-    }
+    p { font-size: 1.2rem; }
 }
 
 main {
     background-color: #5E4AE3;
     display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 form {
     background-color: #947BD3;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    margin: 20px; padding: 20px 50px; border-radius: 16px;
+    margin: 20px;
+    padding: 0 50px 20px 50px;
+    border-radius: 16px;
 
     h3 {
-        color: #05299E;
+        color: #F26CA7;
         text-align: center;
         font-size: 2rem;
+
+        text-shadow:
+        -1.5px -1.5px 0 #5E4AE3,
+        1.5px 1.5px 0 #5E4AE3,
+        -1.5px 1.5px 0 #5E4AE3,
+        1.5px -1.5px 0 #5E4AE3;
     }
 
-    input[type="radio"] {
+
+    label {
         font-size: 1.5rem;
-        color: #F0A7A0;
+        color: #FFFFFF;
+    }
+
+    label[for="codeberg"] { margin-left: 10px; }
+    label[for="github"] { margin-right: 10px; }
+
+    .form-submission {
+        display: flex;
+        justify-content: center;
+        margin: 20px;
+
+        input[type="text"] {
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 1rem;
+            background-color: #F0A7A0;
+            border: 2px solid #F26CA7;
+            margin-right: 5px;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        input[type="text"]::placeholder {
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border: 2px solid #CE5B8D;
+            background-color: #E19993;
+            caret-color: #FFFFFF;
+        }
+
+        input[type="submit"] {
+            background-color: #5E4AE3;
+            color: #FFFFFF;
+            font-size: 1rem;
+            padding: 10px;
+            margin-left: 5px;
+            border: 2px solid #4f3dbf;
+            border-radius: 10px;
+        }
+
+        input[type="submit"]:active {
+            background-color: #7259b1;
+            border: 2px solid #5240c4;
+        }
+    }
+
+    .radio-input {
+        margin-bottom: 10px;
+        input[type="radio"] { accent-color: #F26CA7; }
     }
 }
 
 ul {
-    list-style-type: none;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
 }
 
 .repo {
-    margin: 20px; padding: 5px;
-    height: 5rem; width: 20rem;
+    background-color: #F26CA7;
+    margin: 10px;
+    border: 5px solid #947BD3;
+    border-radius: 5px;
+    height: 5rem;
+    width: 19rem;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    text-align: center;
+    box-shadow: 5px 2px 10px #5E4AE3;
 
-    display: flex; justify-content: center; align-items: center;
-    font-size: 1.5rem; text-align: center;
-    box-shadow: 5px 2px 10px;
+    a, a:link {
+        color: #5240c4;
+        text-decoration: none;
+    }
 }
 
 .repo:hover {
-    height: 5rem; width: 20rem;
-    text-shadow: 5px 2px 10px purple;
-    box-shadow: 10px;
-    animation: pop 1s 1 forwards;
+    height: 5rem;
+    width: 20rem;
+    box-shadow: 10px #5E4AE3;
+    animation: pop 0.5s 1 forwards;
+
+    a {
+        text-decoration: underline transparent;
+        animation: repo-hover 0.5s 1 forwards;
+        transition: text-decoration 500ms;
+    }
+
+    a:hover { text-decoration: underline #FFFFFF; }
+}
+
+.filler-fade {
+    margin: -10px;
+    width: 100vw;
+    height: 10vh;
+    background-image: linear-gradient(#5E4AE3, #AD6CF2);
 }
 
 footer {
+    background-image: linear-gradient(#AD6CF2, #FFFFFF, #FFFFFF);
     position: relative;
     bottom: 0;
     width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    padding: 50px;
+
+    a, a:link {
+        font-size: 2rem;
+        color: #F26CA7;
+        text-decoration: underline transparent;
+        transition: text-decoration 1s;
+    }
+
+    a:hover {
+        color: #5E4AE3;
+        animation: hover-change 0.5s 1 forwards;
+        text-decoration-color: #F26CA7;
+    }
 }

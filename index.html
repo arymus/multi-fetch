@@ -19,26 +19,26 @@
 
         <!-- Returning false when the form is submitted prevents it from reloading the page. -->
         <form onsubmit="return false">
+            <h3>Input your username</h3>
+            <div class="form-submission">
+                <input type="text" id="user" placeholder="Username: ">
+                <input type="submit" id="submit" value="submit">
+            </div>
+                        
             <div class="radio-input">
                 <h3>Pick a platform!</h3>
                 <input type="radio" name="platform" id="github" value="GitHub">
                 <label for="github">GitHub</label>
 
-                <input type="radio" name="platform" id="codeberg" value="Codeberg">
                 <label for="codeberg">Codeberg</label>
-            </div>
-
-            <br>
-
-            <div class="form-submission">
-                <h3>Input your username</h3>
-                <input type="text" id="user" placeholder="Username: ">
-                <input type="submit" id="submit" value="submit">
+                <input type="radio" name="platform" id="codeberg" value="Codeberg">
             </div>
         </form>
 
         <ul id="repo-list"></ul>
     </main>
+
+    <div class="filler-fade"></div>
 
     <footer>
         <a href="https://github.com/arymus">GitHub</a>
